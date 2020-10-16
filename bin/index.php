@@ -8,3 +8,7 @@ date_default_timezone_set('Asia/Shanghai');
 
 ! defined('BASE_PATH') && define('BASE_PATH', dirname(__DIR__, 1));
 
+require BASE_PATH . '/vendor/autoload.php';
+
+(new \App\Controller\Index())->index();
+exit();
