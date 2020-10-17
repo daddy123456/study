@@ -7,13 +7,16 @@
             "email": "2227395155@qq.com"
         }
     ],
-    "require": {},
+    "require": {
+        "symfony/symfony": "^5.1"
+    },
     "require-dev": {
         "swoole/ide-helper": "^4.5"
     },
     "autoload": {
         "psr-4": {
-            "App\\": "app/"
+            "App\\": "app/",
+            "src\\": "src/"
         }
     }
 }
