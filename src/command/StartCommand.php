@@ -22,12 +22,13 @@ class StartCommand extends Command
         $http = new Server('0.0.0.0', 9501);
 
         $http->on('request', function ($request, $response) {
+            if ($request->server['path_info'] == '/favicon.ico' || $request->server['request_uri'] == '/favicon.ico') {
+                $response->end();
+                return;
+            }
+
             $dispatcher = \FastRoute\simpleDispatcher(function(\FastRoute\RouteCollector $r) {
                 $r->addRoute('GET', '/index', 'App\Controller\IndexController@index');
-                // {id} must be a number (\d+)
-                $r->addRoute('GET', '/user/{id:\d+}', 'get_user_handler');
-                // The /{title} suffix is optional
-                $r->addRoute('GET', '/articles/{id:\d+}[/{title}]', 'get_article_handler');
             });
 
             // Fetch method and URI from somewhere
@@ -42,25 +43,22 @@ class StartCommand extends Command
             $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
             switch ($routeInfo[0]) {
                 case \FastRoute\Dispatcher::NOT_FOUND:
-                    // ... 404 Not Found
-                    $response->header("Content-Type", "text/html; charset=utf-8");
-                    $response->end('Not Found');
+                    $response->status(404);
+                    $response->end();
                     break;
                 case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
                     $allowedMethods = $routeInfo[1];
-                    // ... 405 Method Not Allowed
-                    $response->header("Content-Type", "text/html; charset=utf-8");
-                    $response->end('Method Not Allowed');
+                    $response->status(405);
+                    $response->end();
                     break;
                 case \FastRoute\Dispatcher::FOUND:
                     $handler = $routeInfo[1];
                     $vars = $routeInfo[2];
 
-                    // ... call $handler with $vars
                     [$class, $action] = explode('@', $handler);
                     (new $class())->{$action}(11);
                     $response->header("Content-Type", "text/html; charset=utf-8");
-                    $response->end('ok');
+                    $response->end();
                     break;
             }
         });
