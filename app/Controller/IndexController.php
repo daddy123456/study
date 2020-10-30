@@ -1,5 +1,6 @@
 <?php
 
+declare(strict_types=1);
 
 namespace App\Controller;
 
@@ -10,7 +11,7 @@ class IndexController
 
     const BASE_PRICE = 200;
 
-    public function index($id)
+    public static function index()
     {
         $points = 10000;
         $money  = 200;
@@ -25,6 +26,12 @@ class IndexController
         } else {
             var_dump('No discount');
         }
+        return true;
+    }
+
+    public function test()
+    {
+        echo 'Good good study, day day up', PHP_EOL;
         return true;
     }
 }

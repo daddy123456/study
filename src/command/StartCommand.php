@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace src\command;
 
 
+use FastRoute\Dispatcher;
 use src\Router\DispatcherFactory;
 use Swoole\Http\Server;
 use Symfony\Component\Console\Command\Command;
@@ -33,13 +34,7 @@ class StartCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $http = new Server('0.0.0.0', 9501, 1, 1);
-
         $http->on('request', function ($request, $response) {
-            if ($request->server['path_info'] == '/favicon.ico' || $request->server['request_uri'] == '/favicon.ico') {
-                $response->end();
-                return;
-            }
-
             // Fetch method and URI from somewhere
             $httpMethod = $request->server['request_method'];
             $uri = $request->server['request_uri'];
@@ -49,21 +44,28 @@ class StartCommand extends Command
                 $uri = substr($uri, 0, $pos);
             }
             $uri = rawurldecode($uri);
+
             $routeInfo = $this->dispatcher->dispatch($httpMethod, $uri);
             switch ($routeInfo[0]) {
-                case \FastRoute\Dispatcher::NOT_FOUND:
+                case Dispatcher::NOT_FOUND:
                     $response->status(404);
                     $response->end();
                     break;
-                case \FastRoute\Dispatcher::METHOD_NOT_ALLOWED:
+                case Dispatcher::METHOD_NOT_ALLOWED:
                     $allowedMethods = $routeInfo[1];
                     $response->status(405);
-                    $response->end();
+                    $response->end("METHOD_NOT_ALLOWED: $allowedMethods[0]");
                     break;
-                case \FastRoute\Dispatcher::FOUND:
+                case Dispatcher::FOUND:
                     $handler = $routeInfo[1];
                     $vars = $routeInfo[2];
-                    var_dump('ok');
+                    $callback = $handler->callback;
+                    if ($callback instanceof \Closure) {
+                        $callback(...$vars);
+                    } else {
+                        [$className, $action] = explode('@', $callback);
+                        call_user_func_array(array(new $className, $action), $vars);
+                    }
                     $response->header("Content-Type", "text/html; charset=utf-8");
                     $response->end();
                     break;

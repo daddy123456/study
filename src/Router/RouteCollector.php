@@ -57,6 +57,18 @@ class RouteCollector
             }
         }
     }
+
+    public function get(string $route, $handle, array $options = [])
+    {
+        $this->addRoute('GET', $route, $handle, $options);
+    }
+
+    public function post(string $route, $handle, array $options = [])
+    {
+        $this->addRoute('POST', $route, $handle, $options);
+    }
+
+
     protected function mergeOptions(array $origin, array $options): array
     {
         return array_merge_recursive($origin, $options);
