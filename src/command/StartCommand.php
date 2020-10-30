@@ -49,7 +49,7 @@ class StartCommand extends Command
             switch ($routeInfo[0]) {
                 case Dispatcher::NOT_FOUND:
                     $response->status(404);
-                    $response->end();
+                    $response->end('NOT_FOUND');
                     break;
                 case Dispatcher::METHOD_NOT_ALLOWED:
                     $allowedMethods = $routeInfo[1];
