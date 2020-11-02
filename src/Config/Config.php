@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace src\config;
+namespace src\Config;
 
 
-use src\contract\ConfigInterface;
+use src\Contract\ConfigInterface;
 
 class Config implements ConfigInterface
 {

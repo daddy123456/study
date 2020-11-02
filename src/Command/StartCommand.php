@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace src\command;
+namespace src\Command;
 
 
 use FastRoute\Dispatcher;
