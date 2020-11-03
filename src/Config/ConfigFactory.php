@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace src\Config;
+namespace Src\Config;
 
 
 use Symfony\Component\Finder\Finder;

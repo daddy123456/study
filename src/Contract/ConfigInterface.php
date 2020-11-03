@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types=1);
-namespace src\Contract;
+namespace Src\Contract;
 
 
 interface ConfigInterface

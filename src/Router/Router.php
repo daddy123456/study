@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\Router;
+namespace Src\Router;
 
 /**
  * @method static void addRoute($httpMethod, string $route, $handler, array $options = [])

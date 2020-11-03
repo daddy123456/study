@@ -10,6 +10,8 @@ date_default_timezone_set('Asia/Shanghai');
 
 require BASE_PATH . '/vendor/autoload.php';
 
-$application = new \Symfony\Component\Console\Application();
-$application->add(new \src\Command\StartCommand());
-$application->run();
+(function () {
+    $application = new \Symfony\Component\Console\Application();
+    $application->add(new \Src\Command\StartCommand());
+    $application->run();
+})();

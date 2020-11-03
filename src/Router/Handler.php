@@ -1,7 +1,7 @@
 <?php
 
 
-namespace src\Router;
+namespace Src\Router;
 
 
 class Handler

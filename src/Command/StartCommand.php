@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace src\Command;
+namespace Src\Command;
 
 
 use FastRoute\Dispatcher;
-use src\Router\DispatcherFactory;
+use Src\Router\DispatcherFactory;
 use Swoole\Http\Server;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
