@@ -11,7 +11,9 @@ date_default_timezone_set('Asia/Shanghai');
 require BASE_PATH . '/vendor/autoload.php';
 
 (function () {
-    $application = new \Symfony\Component\Console\Application();
-    $application->add(new \Src\Command\StartCommand());
+    /** @var \Psr\Container\ContainerInterface $container */
+    $container = require BASE_PATH . '/config/container.php';
+
+    $application = $container->get(\Src\Contract\ApplicationInterface::class);
     $application->run();
 })();

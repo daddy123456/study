@@ -5,15 +5,14 @@ declare(strict_types=1);
 namespace App\Controller;
 
 
-
+use App\AbstractController;
 use Src\Curl\Curl;
 
-class IndexController
+class IndexController extends AbstractController
 {
-    public static function index()
+    public function index()
     {
-//        $url = 'http://api.btstu.cn/sjbz/api.php?format=json';
-        $url = 'http://api.btstu.cn/qqinfo/api.php?qq=2227395155';
+        $url = '';
         $result = (new Curl($url))->get();
         var_dump($result);
         return true;
@@ -21,7 +20,8 @@ class IndexController
 
     public function test()
     {
-        echo 'Good good study, day day up', PHP_EOL;
+        var_dump($this->request->getUri());
+        var_dump($this->request->get());
         return true;
     }
 }
