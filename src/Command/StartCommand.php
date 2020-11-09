@@ -31,7 +31,7 @@ class StartCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $output->writeln('start server');
-        $http = new Server('0.0.0.0', 9501, 1, 1);
+        $http = new Server('0.0.0.0', 9501);
         $http->on('workerStart', [$this, 'onWorkerStart']);
         $http->on('request', [$this, 'onRequest']);
         $http->start();
