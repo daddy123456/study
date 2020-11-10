@@ -8,6 +8,13 @@
         }
     ],
     "require": {
+        "php": ">=7.4",
+        "ext-swoole": ">=4.5",
+        "ext-curl": "*",
+        "ext-json": "*",
+        "ext-bcmath": "*",
+        "ext-iconv": "*",
+        "ext-gd": "*",
         "symfony/symfony": "^5.1",
         "nikic/fast-route": "^1.3"
     },
