@@ -6,6 +6,7 @@ namespace App\Controller;
 
 
 use App\AbstractController;
+use Src\Database\Db;
 use Src\Model\Model;
 use Src\Redis\Redis;
 use Src\Request\ApplicationContext;
@@ -29,13 +30,15 @@ class IndexController extends AbstractController
     {
 //        var_dump($this->request->getUri());
 //        var_dump($this->request->get());
-        $model = new Model();
+//        $model = new Model();
 //        var_dump($model->php);
 //        $model->name = 'long';
 //        var_dump($model->name);
 //        $model->getAttributeName();
-        $model->setAttributeLong(['long', 333]);
-        var_dump($model->getAttributeLong());
-        return true;
+//        $model->setAttributeLong(['long', 333]);
+//        var_dump($model->getAttributeLong());
+
+        $result = Db::table('test')->where('id', '=', $this->request->get()['id'])->query();
+        return json_encode(['msg' => 'ok', 'code' => 0,'data' => $result]);
     }
 }

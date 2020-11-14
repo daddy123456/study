@@ -16,6 +16,7 @@
         "ext-bcmath": "*",
         "ext-iconv": "*",
         "ext-gd": "*",
+        "ext-mysqli": "*",
         "symfony/symfony": "^5.1",
         "nikic/fast-route": "^1.3"
     },
