@@ -6,16 +6,22 @@ namespace App\Controller;
 
 
 use App\AbstractController;
-use Src\Curl\Curl;
+use Src\Redis\Redis;
+use Src\Request\ApplicationContext;
 
 class IndexController extends AbstractController
 {
     public function index()
     {
-        $url = '';
-        $result = (new Curl($url))->get();
-        var_dump($result);
-        return true;
+        $redis = ApplicationContext::getContainer()->get(Redis::class)->adapter('default');
+
+        var_dump($redis->keys('*'));
+
+
+        if (! $redis->exists('php')) {
+            $redis->set('php', 'Hello');
+        }
+        var_dump($redis->get('php'));
     }
 
     public function test()

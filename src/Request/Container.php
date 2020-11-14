@@ -6,7 +6,9 @@ namespace Src\Request;
 
 
 use Src\Command\StartCommand;
+use Src\Config\ConfigFactory;
 use Src\Contract\ApplicationInterface;
+use Src\Contract\ConfigAutoload;
 use Src\Contract\ContainerInterface;
 use Psr\Container\ContainerInterface as PsrContainerInterface;
 use Symfony\Component\Console\Application;
@@ -22,7 +24,8 @@ class Container implements ContainerInterface
             self::class => $this,
             PsrContainerInterface::class => $this,
             ContainerInterface::class => $this,
-            ApplicationInterface::class => Application::class
+            ApplicationInterface::class => Application::class,
+            ConfigAutoload::class => (new ConfigFactory())()
         ];
     }
 

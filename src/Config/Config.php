@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Src\Config;
 
 
-use src\Contract\ConfigInterface;
+use Src\Contract\ConfigInterface;
 
 class Config implements ConfigInterface
 {

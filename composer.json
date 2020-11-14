@@ -10,6 +10,7 @@
     "require": {
         "php": ">=7.4",
         "ext-swoole": ">=4.5",
+        "ext-redis": "*",
         "ext-curl": "*",
         "ext-json": "*",
         "ext-bcmath": "*",

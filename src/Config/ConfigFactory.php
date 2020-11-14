@@ -11,20 +11,7 @@ class ConfigFactory
 {
     public function __invoke()
     {
-        $basePath = BASE_PATH . '/config/';
-        $config = $this->readConfig($basePath. 'config.php');
-        $autoloadConfig = $this->readAutoloadConfig(BASE_PATH . '/config/autoload');
-        $merged =  array_merge_recursive($config, $autoloadConfig);
-        return new Config($merged);
-    }
-
-    private function readConfig(string $configPath): array
-    {
-        $config = [];
-        if (file_exists($configPath) && is_readable($configPath)) {
-            $config = require $configPath;
-        }
-        return is_array($config) ? $config : [];
+        return new Config($this->readAutoloadConfig(BASE_PATH . '/config/autoload'));
     }
 
     private function readAutoloadConfig(string $paths): array
@@ -33,7 +20,7 @@ class ConfigFactory
         $finder = new Finder();
         $finder->files()->in($paths)->name('*.php');
         foreach ($finder as $file) {
-            $configs[] = [$file->getBasename('.php') => require $file->getRealPath()];
+            $configs[$file->getBasename('.php')] = require $file->getRealPath();
         }
         return $configs;
     }
