@@ -23,7 +23,7 @@ class IndexController extends AbstractController
         if (! $redis->exists('php')) {
             $redis->set('php', 'Hello');
         }
-        var_dump($redis->get('php'));
+        return $this->error($redis->get('php'));
     }
 
     public function test()
@@ -39,6 +39,6 @@ class IndexController extends AbstractController
 //        var_dump($model->getAttributeLong());
 
         $result = Db::table('test')->where('id', '=', $this->request->get()['id'])->query();
-        return json_encode(['msg' => 'ok', 'code' => 0,'data' => $result]);
+        return $this->success('ok', $result);
     }
 }

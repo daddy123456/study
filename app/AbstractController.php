@@ -16,4 +16,18 @@ abstract class AbstractController
     {
         $this->request = new Request();
     }
+
+    public function success(string $msg, $data = [], $code = 0)
+    {
+        if (is_object($data)) {
+            $data = (array) $data;
+        }
+
+        return json_encode(['code' => $code, 'msg' => $msg, 'data' => $data]);
+    }
+
+    public function error(string $msg, $code = 3001)
+    {
+        return json_encode(['code' => $code, 'error' => $msg, 'data' => []]);
+    }
 }
